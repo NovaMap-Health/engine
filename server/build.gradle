@@ -803,6 +803,7 @@ def signSetupJars = tasks.register('signSetupJars') {
                 withRetry {
                     ant.signjar(jar: jarFile.absolutePath,
                             alias: signingProp('key.alias'),
+                            keystore: signingProp('key.keystore') ?: 'NONE',
                             storepass: signingProp('key.storepass'),
                             storetype: signingProp('key.storetype'),
                             providerclass: signingProp('key.providerclass'),

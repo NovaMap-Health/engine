@@ -38,6 +38,9 @@
           <entry location="logs" />
           <entry location="oieservice.vmoptions" />
           <entry location="client-lib" />
+          <entry location="configure-from-env" />
+          <entry location="oieserver" />
+          <entry location="oieserver.ps1" />
         </exclude>
       </dirEntry>
     </entries>
