@@ -48,42 +48,24 @@
   <launchers>
     <launcher name="Open Integration Engine Service" id="25">
       <executable name="${compiler:sys.shortName}service" iconSet="true" executableDir="." redirectStderr="false" executableMode="service" singleInstance="true" globalSingleInstance="true" />
-      <java mainClass="com.mirth.connect.server.launcher.MirthLauncher">
+      <java mainClass="com.mirth.connect.server.launcher.MirthLauncher" vmParameters="-include-options oieservice.vmoptions">
         <classPath>
           <archive location="mirth-server-launcher.jar" failOnError="false" />
         </classPath>
       </java>
-      <vmOptionsFile mode="none" overwriteMode="alwaysAsk">
-        <content>#
-# Do not modify this file! It may get overwritten in an update. Please put all custom
-# options in custom.vmoptions
-#
--server
--Xmx256m
--Djava.awt.headless=true
--Dapple.awt.UIElement=true</content>
-      </vmOptionsFile>
+      <vmOptionsFile mode="none" />
       <iconImageFiles>
         <file path="${compiler:installer:mediaRoot}/../governance/branding/icons/oie_logo_only_white_background_128x128.png" />
       </iconImageFiles>
     </launcher>
     <launcher name="Open Integration Engine Server" id="39" excludeFromMenu="true">
       <executable name="${compiler:sys.shortName}server" iconSet="true" executableDir="." redirectStderr="false" executableMode="console" singleInstance="true" globalSingleInstance="true" />
-      <java mainClass="com.mirth.connect.server.launcher.MirthLauncher">
+      <java mainClass="com.mirth.connect.server.launcher.MirthLauncher" vmParameters="-include-options oieserver.vmoptions">
         <classPath>
           <archive location="mirth-server-launcher.jar" failOnError="false" />
         </classPath>
       </java>
-      <vmOptionsFile mode="none" overwriteMode="alwaysAsk">
-        <content>#
-# Do not modify this file! It may get overwritten in an update. Please put all custom
-# options in custom.vmoptions
-#
--server
--Xmx256m
--Djava.awt.headless=true
--Dapple.awt.UIElement=true</content>
-      </vmOptionsFile>
+      <vmOptionsFile mode="none" />
       <iconImageFiles>
         <file path="${compiler:installer:mediaRoot}/../governance/branding/icons/oie_logo_only_white_background_128x128.png" />
       </iconImageFiles>
