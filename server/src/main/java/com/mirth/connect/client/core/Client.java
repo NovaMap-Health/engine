@@ -559,6 +559,16 @@ public class Client implements UserServletInterface, ConfigurationServletInterfa
     }
 
     /**
+     * Returns the patch-train build id of the server.
+     *
+     * @see ConfigurationServletInterface#getBuildVersion
+     */
+    @Override
+    public String getBuildVersion() throws ClientException {
+        return getServlet(ConfigurationServletInterface.class).getBuildVersion();
+    }
+
+    /**
      * Returns the status of the server.
      * 
      * @see ConfigurationServletInterface#getStatus

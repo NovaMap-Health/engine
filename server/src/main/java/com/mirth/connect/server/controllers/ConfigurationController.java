@@ -243,6 +243,14 @@ public abstract class ConfigurationController extends Controller {
     public abstract String getBuildDate();
 
     /**
+     * Returns the patch-train build id (ex. 4.6.0.1), or null/empty when unset.
+     * Distinct from {@link #getServerVersion()}, which is the API/schema version.
+     *
+     * @return the build version, or null/empty if not set
+     */
+    public abstract String getBuildVersion();
+
+    /**
      * The maximum amount of time that a session can be idle before it is invalidated.
      */
     public abstract int getMaxInactiveSessionInterval();

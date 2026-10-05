@@ -52,7 +52,9 @@ compileTestJava {
 def generateVersionProperties = tasks.register('generateVersionProperties') {
     description = 'Generates version.properties (embedded in mirth-client-core.jar).'
     def outFile = file('version.properties')
+    def buildVersion = providers.gradleProperty('buildVersion').orElse('').get()
     inputs.property 'version', version
+    inputs.property 'buildVersion', buildVersion
     // the date must be computed at execution time, not when the daemon
     // happened to configure the project
     inputs.property 'date', project.providers.provider {
@@ -61,7 +63,12 @@ def generateVersionProperties = tasks.register('generateVersionProperties') {
     outputs.file outFile
     doLast {
         def buildDate = new SimpleDateFormat('MMMM d, yyyy', Locale.US).format(new Date())
-        outFile.text = "mirth.version=${version}\nmirth.date=${buildDate}\n"
+        def text = "mirth.version=${version}\nmirth.date=${buildDate}\n"
+
+        if (buildVersion) {
+            text += "mirth.build=${buildVersion}\n"
+        }
+        outFile.text = text
     }
 }
 
