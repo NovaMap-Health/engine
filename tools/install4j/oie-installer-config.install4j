@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="13.1.1" transformSequenceNumber="13">
-  <application name="Open Integration Engine - NovaMap Edition" applicationId="4326-7195-5738-7648" mediaDir="${compiler:installer:mediaRoot}/server/build" shortName="oie-nova" publisher="NovaMap Health Limited" publisherWeb="https://www.novamap.health" version="4.6.0" backupOnSave="true" autoSave="true" macVolumeId="737bdef6aa037299" javaMinVersion="17" javaMaxVersion="25">
+  <application name="Open Integration Engine - NovaMap Edition" applicationId="4326-7195-5738-7648" mediaDir="${compiler:installer:mediaRoot}/server/build" shortName="oie-nova" publisher="NovaMap Health Limited" publisherWeb="https://www.novamap.health" version="4.7.0" backupOnSave="true" autoSave="true" macVolumeId="737bdef6aa037299" javaMinVersion="17" javaMaxVersion="25">
     <variables>
       <variable name="installer:mediaRoot" value="../../../engine" />
     </variables>
