@@ -46,7 +46,7 @@
     </entries>
   </files>
   <launchers>
-    <launcher name="Open Integration Engine Service" id="25">
+    <launcher name="Open Integration Engine - NovaMap Edition Service" id="25">
       <executable name="${compiler:sys.shortName}service" iconSet="true" executableDir="." redirectStderr="false" executableMode="service" singleInstance="true" globalSingleInstance="true" />
       <java mainClass="com.mirth.connect.server.launcher.MirthLauncher" vmParameters="-include-options oieservice.vmoptions">
         <classPath>
@@ -58,7 +58,7 @@
         <file path="${compiler:installer:mediaRoot}/../governance/branding/icons/oie_logo_only_white_background_128x128.png" />
       </iconImageFiles>
     </launcher>
-    <launcher name="Open Integration Engine Server" id="39" excludeFromMenu="true">
+    <launcher name="Open Integration Engine - NovaMap Edition Server" id="39" excludeFromMenu="true">
       <executable name="${compiler:sys.shortName}server" iconSet="true" executableDir="." redirectStderr="false" executableMode="console" singleInstance="true" globalSingleInstance="true" />
       <java mainClass="com.mirth.connect.server.launcher.MirthLauncher" vmParameters="-include-options oieserver.vmoptions">
         <classPath>
@@ -413,7 +413,7 @@ return true;
               <action id="26" beanClass="com.install4j.runtime.beans.actions.services.InstallServiceAction" actionElevationType="elevated" rollbackBarrierExitCode="0" failureStrategy="ask">
                 <serializedBean>
                   <property name="launcherId" type="string">25</property>
-                  <property name="macosIdentifier" type="string">com.oie.oieservice</property>
+                  <property name="macosIdentifier" type="string">health.novamap.oie-novaservice</property>
                 </serializedBean>
               </action>
             </actions>
