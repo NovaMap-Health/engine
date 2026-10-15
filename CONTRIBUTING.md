@@ -38,6 +38,17 @@ The build is driven by Gradle through the included wrapper; no separate Gradle i
 ```
 On Windows use `gradlew.bat` instead of `./gradlew`. The assembled distribution lands in `server/setup`, the same location the previous Ant build used. For release artifacts, run a clean build: `./gradlew clean build dist`. Windows with SDKMan may generate an error about the file path being too long in the javadoc step, skip this by adding `-x :server:userApiJavadoc` to your Gradle command.
 
+#### Release versioning (API vs installer)
+
+The runtime API/schema version stays in Gradle `version` / `mirth.version` (currently `4.6.0`). Patch-train releases can carry a four-part build id without changing that API version:
+
+```bash
+./gradlew clean build dist -PbuildVersion=4.6.0.1
+install4jc -release 4.6.0.1 tools/install4j/oie-installer-config.install4j
+```
+
+`-PbuildVersion` writes `mirth.build` into `version.properties` (shown in About when set). `install4jc -release` sets the installer/media version only. Serializers and channel compatibility continue to use `4.6.0`.
+
 Dependencies are pinned and checksum-verified. To change a dependency version: edit `gradle/libs.versions.toml`, then refresh the checksum metadata **with a cold dependency cache and CI's flags**:
 ```bash
 GRADLE_USER_HOME=$(mktemp -d) ./gradlew --write-verification-metadata sha256 build dist -PdisableSigning=true -Pcoverage=true

@@ -57,6 +57,10 @@ public class AboutMirth extends MirthDialog {
             content.append(String.format("%s Server %s\n\n", BrandingConstants.PRODUCT_NAME, PlatformUI.SERVER_VERSION));
         }
 
+        if (PlatformUI.BUILD_VERSION != null && !PlatformUI.BUILD_VERSION.isEmpty()) {
+            content.append("Build ").append(PlatformUI.BUILD_VERSION).append("\n\n");
+        }
+
         if (PlatformUI.BUILD_DATE != null) {
             content.append("Built on ").append(PlatformUI.BUILD_DATE).append("\n\n");
         }
