@@ -24,6 +24,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -97,6 +98,13 @@ public class ConfigurationServlet extends MirthServlet implements ConfigurationS
 
     @Override
     @DontCheckAuthorized
+    public String getBuildVersion() {
+        // Authorization not required
+        return configurationController.getBuildVersion();
+    }
+
+    @Override
+    @DontCheckAuthorized
     public int getStatus() {
         // Authorization not required
         return configurationController.getStatus();
@@ -123,6 +131,11 @@ public class ConfigurationServlet extends MirthServlet implements ConfigurationS
         properties.put("name", configurationController.getServerName());
         properties.put("version", configurationController.getServerVersion());
         properties.put("date", configurationController.getBuildDate());
+        String buildVersion = configurationController.getBuildVersion();
+
+        if (StringUtils.isNotBlank(buildVersion)) {
+            properties.put("build", buildVersion);
+        }
         properties.put("database", configurationController.getDatabaseType());
 
         properties.put("channelCount", channelController.getChannelIds().size());

@@ -764,6 +764,11 @@ public class DefaultConfigurationController extends ConfigurationController {
     }
 
     @Override
+    public String getBuildVersion() {
+        return versionConfig.getString("mirth.build", "");
+    }
+
+    @Override
     public int getMaxInactiveSessionInterval() {
         return maxInactiveSessionInterval;
     }

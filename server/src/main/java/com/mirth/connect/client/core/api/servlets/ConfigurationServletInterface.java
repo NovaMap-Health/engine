@@ -85,6 +85,13 @@ public interface ConfigurationServletInterface extends BaseServletInterface {
     public String getBuildDate() throws ClientException;
 
     @GET
+    @Path("/buildVersion")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Operation(summary = "Returns the patch-train build id of the server.")
+    @MirthOperation(name = "getBuildVersion", display = "Get build version", auditable = false)
+    public String getBuildVersion() throws ClientException;
+
+    @GET
     @Path("/status")
     @Operation(summary = "Returns the status of the server.")
     @ApiResponse(content = {
