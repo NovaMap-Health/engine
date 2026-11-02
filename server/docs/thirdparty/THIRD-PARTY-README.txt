@@ -26,7 +26,6 @@ The following are distributed under the terms of the Apache License version 2.0
 	Google Code libphonenumber (https://github.com/google/libphonenumber)
 	Google Code Prettify (https://github.com/google/code-prettify)
 	Guava 32.0.1 [incl. CLI] (https://github.com/google/guava)
-	Guice 4.1 (https://github.com/google/guice)
 	HikariCP 2.5.1
 	J2ObjC Annotations 1.3 (https://github.com/google/j2objc/)
 	Jackson Project [incl. CLI] (https://github.com/FasterXML/jackson)
@@ -322,9 +321,9 @@ https://repo1.maven.org/maven2/org/swinglabs/pdf-renderer/1.0.5/pdf-renderer-1.0
 --------------------------------------------------------------------------------
 
 
-javaparser version 1.0.8 is covered by the LGPL version 3 or later (see
+javaparser-core version 3.28.2 is covered by the LGPL version 3 or later (see
 LGPL-3.0.txt). The library source code is available at
-https://repo1.maven.org/maven2/com/google/code/javaparser/javaparser/1.0.8/javaparser-1.0.8-sources.jar
+https://repo1.maven.org/maven2/com/github/javaparser/javaparser-core/3.28.2/javaparser-core-3.28.2-sources.jar
 
 
 --------------------------------------------------------------------------------

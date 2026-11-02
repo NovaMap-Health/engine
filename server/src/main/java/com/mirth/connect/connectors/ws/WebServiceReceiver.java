@@ -1,11 +1,6 @@
-/*
- * Copyright (c) Mirth Corporation. All rights reserved.
- * 
- * http://www.mirthcorp.com
- * 
- * The software in this package is published under the terms of the MPL license a copy of which has
- * been included with this distribution in the LICENSE.txt file.
- */
+// SPDX-License-Identifier: MPL-2.0
+// SPDX-FileCopyrightText: Mirth Corporation
+// SPDX-FileCopyrightText: Open Integration Engine Contributors
 
 package com.mirth.connect.connectors.ws;
 
@@ -21,6 +16,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.Binding;
@@ -34,6 +30,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import com.google.common.annotations.VisibleForTesting;
 import com.mirth.connect.donkey.model.channel.ConnectorPluginProperties;
 import com.mirth.connect.donkey.model.event.ConnectionStatusEventType;
 import com.mirth.connect.donkey.model.event.ErrorEventType;
@@ -163,7 +160,7 @@ public class WebServiceReceiver extends SourceConnector {
         }
 
         // Allow more than the channel processing threads so WDSL requests can be accepted even if all processing threads are busy
-        executor = Executors.newFixedThreadPool(processingThreads + 4);
+        executor = createExecutor(processingThreads + 4, WebServiceReceiver.class.getClassLoader());
         server.setExecutor(executor);
         server.start();
 
@@ -227,6 +224,23 @@ public class WebServiceReceiver extends SourceConnector {
         }
 
         eventController.dispatchEvent(new ConnectionStatusEvent(getChannelId(), getMetaDataId(), getSourceName(), ConnectionStatusEventType.IDLE));
+    }
+
+    /*
+     * The HttpServer creates request worker threads from its dispatcher thread, so they inherit the
+     * dispatcher's context classloader. Since JDK 19 that is the system classloader, which cannot
+     * see server-lib, and lookups through the context classloader (e.g. the SAAJ implementation)
+     * fail. Give the worker threads the given classloader explicitly instead.
+     */
+    @VisibleForTesting
+    static ExecutorService createExecutor(int threads, ClassLoader contextClassLoader) {
+        ThreadFactory defaultThreadFactory = Executors.defaultThreadFactory();
+
+        return Executors.newFixedThreadPool(threads, runnable -> {
+            Thread thread = defaultThreadFactory.newThread(runnable);
+            thread.setContextClassLoader(contextClassLoader);
+            return thread;
+        });
     }
 
     @Override
