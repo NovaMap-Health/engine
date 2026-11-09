@@ -12,7 +12,6 @@ package com.mirth.connect.client.ui;
 import static com.mirth.connect.client.core.BrandingConstants.CENTRAL_USER_REGISTRATION;
 import static com.mirth.connect.client.core.BrandingConstants.MANDATORY_USER_REGISTRATION;
 
-import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowAdapter;
@@ -28,6 +27,9 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.mirth.connect.client.core.ClientException;
 import com.mirth.connect.client.ui.util.DisplayUtil;
 import com.mirth.connect.model.User;
@@ -36,6 +38,7 @@ import com.mirth.connect.model.User;
  * A dialog for creating a new user or editing a current user
  */
 public class FirstLoginDialog extends javax.swing.JDialog implements UserDialogInterface {
+    private static Logger logger = LogManager.getLogger(FirstLoginDialog.class);
 
     private Frame parent;
     private boolean result = false;
@@ -184,15 +187,11 @@ public class FirstLoginDialog extends javax.swing.JDialog implements UserDialogI
         contentTextPane.setEditable(false);
         contentTextPane.addHyperlinkListener(new HyperlinkListener() {
             public void hyperlinkUpdate(HyperlinkEvent evt) {
-                if (evt.getEventType() == EventType.ACTIVATED && Desktop.isDesktopSupported()) {
+                if (evt.getEventType() == EventType.ACTIVATED) {
                     try {
-                        if (Desktop.isDesktopSupported()) {
-                            Desktop.getDesktop().browse(evt.getURL().toURI());
-                        } else {
-                            BareBonesBrowserLaunch.openURL(evt.getURL().toString());
-                        }
+                        BareBonesBrowserLaunch.openURL(evt.getURL().toString());
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        logger.error("Error opening hyperlink " + evt.getURL(), e);
                     }
                 }
             }
